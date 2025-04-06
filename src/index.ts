@@ -1,5 +1,6 @@
 import express, { Request, Response } from 'express';
 import path from 'path';
+import middlewareLogResponses from "./middleware/middleware-log-responses.js";
 
 const app = express();
 const PORT = 8080;
@@ -7,6 +8,8 @@ const PORT = 8080;
 app.use("/app", express.static('./src/app'));
 
 app.get("/healthz", handlerReadiness)
+
+app.use(middlewareLogResponses)
 
 app.listen(PORT, () => {
   console.log(`Server is running at http://localhost:${PORT}`);
