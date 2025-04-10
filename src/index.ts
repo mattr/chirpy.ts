@@ -1,15 +1,16 @@
 import express, { NextFunction, Request, Response } from 'express';
-import middlewareLogResponses from "./middleware/middleware-log-responses.js";
-import middlewareMetricsInc from "./middleware/middleware-metrics-inc.js";
-import errorHandler from "./middleware/error-handler.js";
-import handlerValidateChirp from "./handlers/handler-validate-chirp.js";
-import handlerMetrics from "./handlers/handler-metrics.js";
-import handlerMetricsReset from "./handlers/handler-metrics-reset.js";
-import handlerReadiness from "./handlers/handler-readiness.js";
 import postgres from 'postgres';
 import { migrate } from 'drizzle-orm/postgres-js/migrator';
 import { drizzle } from 'drizzle-orm/postgres-js';
 import config from "./config.js";
+import {
+  handlerValidateChirp,
+  handlerMetrics,
+  handlerMetricsReset,
+  handlerReadiness,
+  handlerCreateUser
+} from "./handlers/index.js";
+import { middlewareLogResponses, middlewareMetricsInc, errorHandler } from "./middleware/index.js";
 
 process.loadEnvFile();
 
@@ -31,6 +32,8 @@ app.post("/api/validate_chirp", async (req: Request, res: Response, next: NextFu
     next(err);
   }
 });
+app.post("/api/users", handlerCreateUser);
+
 app.get("/admin/metrics", handlerMetrics);
 app.post("/admin/reset", handlerMetricsReset);
 

@@ -6,5 +6,5 @@ export default defineConfig({
   dialect: "postgresql",
   dbCredentials: {
     url: "postgres://matt:@localhost:5432/chirpy?sslmode=disable",
-  },
+  }
 })

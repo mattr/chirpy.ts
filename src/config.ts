@@ -5,6 +5,7 @@ process.loadEnvFile();
 type APIConfig = {
   fileserverHits: number;
   db: { url: string, migrationConfig: MigrationConfig };
+  platform: string
 }
 
 const migrationConfig: MigrationConfig = {
@@ -16,7 +17,8 @@ const config: APIConfig = {
   db: {
     url: process.env.DB_URL || "",
     migrationConfig
-  }
+  },
+  platform: process.env.PLATFORM || "production"
 };
 
 export default config;
