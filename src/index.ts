@@ -9,7 +9,8 @@ import {
   handlerMetricsReset,
   handlerReadiness,
   handlerCreateUser,
-  handlerCreateChirp
+  handlerCreateChirp,
+  handlerGetChirps, handlerGetChirp
 } from "./handlers/index.js";
 import { middlewareLogResponses, middlewareMetricsInc, errorHandler } from "./middleware/index.js";
 
@@ -35,6 +36,8 @@ app.post("/api/validate_chirp", async (req: Request, res: Response, next: NextFu
 });
 app.post("/api/users", handlerCreateUser);
 app.post("/api/chirps", handlerCreateChirp);
+app.get("/api/chirps", handlerGetChirps)
+app.get("/api/chirps/:id", handlerGetChirp)
 
 app.get("/admin/metrics", handlerMetrics);
 app.post("/admin/reset", handlerMetricsReset);
