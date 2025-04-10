@@ -6,9 +6,18 @@ import handlerValidateChirp from "./handlers/handler-validate-chirp.js";
 import handlerMetrics from "./handlers/handler-metrics.js";
 import handlerMetricsReset from "./handlers/handler-metrics-reset.js";
 import handlerReadiness from "./handlers/handler-readiness.js";
+import postgres from 'postgres';
+import { migrate } from 'drizzle-orm/postgres-js/migrator';
+import { drizzle } from 'drizzle-orm/postgres-js';
+import config from "./config.js";
+
+process.loadEnvFile();
 
 const app = express();
-const PORT = 8080;
+const PORT = process.env.PORT || 8080;
+
+const migrationClient = postgres(config.db.url, { max: 1 });
+await migrate(drizzle(migrationClient), config.db.migrationConfig);
 
 app.use(express.json());
 app.use("/app", middlewareMetricsInc, express.static('./src/app'));
