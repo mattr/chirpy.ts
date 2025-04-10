@@ -8,3 +8,13 @@ export const users = pgTable("users", {
 });
 
 export type NewUser = typeof users.$inferInsert;
+
+export const chirps = pgTable("chirps", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow().$onUpdate(() => new Date()),
+  userId: uuid("user_id").notNull(),
+  body: varchar("body").notNull(),
+});
+
+export type NewChirp = typeof chirps.$inferInsert;
