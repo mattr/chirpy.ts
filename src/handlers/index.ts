@@ -6,6 +6,7 @@ import handlerReadiness from "./handler-readiness.js";
 import handlerValidateChirp from "./handler-validate-chirp.js";
 import handlerGetChirps from "./handler-get-chirps.js"
 import handlerGetChirp from "./handler-get-chirp.js"
+import handlerLogin from "./handler-login.js";
 
 export {
   handlerCreateUser,
@@ -15,5 +16,6 @@ export {
   handlerReadiness,
   handlerValidateChirp,
   handlerGetChirps,
-  handlerGetChirp
+  handlerGetChirp,
+  handlerLogin,
 };

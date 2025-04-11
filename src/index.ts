@@ -10,7 +10,9 @@ import {
   handlerReadiness,
   handlerCreateUser,
   handlerCreateChirp,
-  handlerGetChirps, handlerGetChirp
+  handlerGetChirps,
+  handlerGetChirp,
+  handlerLogin
 } from "./handlers/index.js";
 import { middlewareLogResponses, middlewareMetricsInc, errorHandler } from "./middleware/index.js";
 
@@ -34,6 +36,7 @@ app.post("/api/validate_chirp", async (req: Request, res: Response, next: NextFu
     next(err);
   }
 });
+app.post("/api/login", handlerLogin);
 app.post("/api/users", handlerCreateUser);
 app.post("/api/chirps", handlerCreateChirp);
 app.get("/api/chirps", handlerGetChirps)
