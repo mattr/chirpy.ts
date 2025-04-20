@@ -1,5 +1,6 @@
 import bcrypt from "bcrypt";
 import jwt, { JwtPayload } from "jsonwebtoken";
+import { type Request } from "express";
 
 export function hashPassword(password: string): string {
   const salt = bcrypt.genSaltSync();
@@ -23,12 +24,30 @@ export function makeJWT(userID: string, expiresIn: number, secret: string): stri
   return jwt.sign(payload, secret);
 }
 
-function validateJWT(tokenString: string, secret: string): string {
-  jwt.decode(tokenString, secret, (err, decoded) => {
+export function validateJWT(tokenString: string, secret: string): string {
+  let sub = "";
+  jwt.verify(tokenString, secret, (err, decoded) => {
     if (err) {
       throw err;
     } else {
-      return decoded.sub;
+      if (decoded === undefined) {
+        throw new Error("unable to decode token");
+      }
+      if (typeof decoded === "string") {
+        sub = JSON.parse(decoded).sub;
+      } else {
+        sub = decoded.sub ?? "";
+      }
     }
   });
+  return sub;
+}
+
+export function getBearerToken(req: Request): string {
+  if (!req.headers.authorization) {
+    throw new Error("Missing authorization header");
+  }
+
+  const [_, token] = req.headers.authorization.split(" ");
+  return token.trim();
 }
