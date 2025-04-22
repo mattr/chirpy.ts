@@ -1,5 +1,6 @@
 import handlerCreateChirp from "./handler-create-chirp.js";
 import handlerCreateUser from "./handler-create-user.js";
+import handlerDeleteChirp from "./handler-delete-chirp.js";
 import handlerGetChirp from "./handler-get-chirp.js"
 import handlerGetChirps from "./handler-get-chirps.js"
 import handlerLogin from "./handler-login.js";
@@ -14,6 +15,7 @@ import handlerValidateChirp from "./handler-validate-chirp.js";
 export {
   handlerCreateUser,
   handlerCreateChirp,
+  handlerDeleteChirp,
   handlerGetChirp,
   handlerGetChirps,
   handlerLogin,

@@ -6,6 +6,7 @@ import config from "./config.js";
 import {
   handlerCreateChirp,
   handlerCreateUser,
+  handlerDeleteChirp,
   handlerGetChirp,
   handlerGetChirps,
   handlerLogin,
@@ -45,8 +46,9 @@ app.post("/api/revoke", handlerRevoke);
 app.post("/api/users", handlerCreateUser);
 app.put("/api/users", handlerUpdateUser);
 app.post("/api/chirps", handlerCreateChirp);
-app.get("/api/chirps", handlerGetChirps)
-app.get("/api/chirps/:id", handlerGetChirp)
+app.get("/api/chirps", handlerGetChirps);
+app.get("/api/chirps/:id", handlerGetChirp);
+app.delete("/api/chirps/:id", handlerDeleteChirp);
 
 app.get("/admin/metrics", handlerMetrics);
 app.post("/admin/reset", handlerMetricsReset);
