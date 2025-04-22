@@ -4,15 +4,16 @@ import { migrate } from 'drizzle-orm/postgres-js/migrator';
 import { drizzle } from 'drizzle-orm/postgres-js';
 import config from "./config.js";
 import {
-  handlerValidateChirp,
+  handlerCreateChirp,
+  handlerCreateUser,
+  handlerGetChirp,
+  handlerGetChirps,
+  handlerLogin,
   handlerMetrics,
   handlerMetricsReset,
   handlerReadiness,
-  handlerCreateUser,
-  handlerCreateChirp,
-  handlerGetChirps,
-  handlerGetChirp,
-  handlerLogin
+  handlerRefresh,
+  handlerValidateChirp,
 } from "./handlers/index.js";
 import { middlewareLogResponses, middlewareMetricsInc, errorHandler } from "./middleware/index.js";
 
@@ -37,6 +38,7 @@ app.post("/api/validate_chirp", async (req: Request, res: Response, next: NextFu
   }
 });
 app.post("/api/login", handlerLogin);
+app.post("/api/refresh", handlerRefresh);
 app.post("/api/users", handlerCreateUser);
 app.post("/api/chirps", handlerCreateChirp);
 app.get("/api/chirps", handlerGetChirps)
