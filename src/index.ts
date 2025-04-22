@@ -14,6 +14,7 @@ import {
   handlerReadiness,
   handlerRefresh,
   handlerRevoke,
+  handlerUpdateUser,
   handlerValidateChirp,
 } from "./handlers/index.js";
 import { middlewareLogResponses, middlewareMetricsInc, errorHandler } from "./middleware/index.js";
@@ -42,6 +43,7 @@ app.post("/api/login", handlerLogin);
 app.post("/api/refresh", handlerRefresh);
 app.post("/api/revoke", handlerRevoke);
 app.post("/api/users", handlerCreateUser);
+app.put("/api/users", handlerUpdateUser);
 app.post("/api/chirps", handlerCreateChirp);
 app.get("/api/chirps", handlerGetChirps)
 app.get("/api/chirps/:id", handlerGetChirp)

@@ -8,6 +8,7 @@ import handlerMetricsReset from "./handler-metrics-reset.js";
 import handlerReadiness from "./handler-readiness.js";
 import handlerRefresh from "./handler-refresh.js";
 import handlerRevoke from "./handler-revoke.js";
+import handlerUpdateUser from "./handler-update-user.js";
 import handlerValidateChirp from "./handler-validate-chirp.js";
 
 export {
@@ -21,5 +22,6 @@ export {
   handlerReadiness,
   handlerRefresh,
   handlerRevoke,
+  handlerUpdateUser,
   handlerValidateChirp,
 };

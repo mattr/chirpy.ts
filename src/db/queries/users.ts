@@ -15,3 +15,8 @@ export async function GetUserByEmail(email: string): Promise<User> {
 export async function deleteAllUsers() {
   await db.delete(users);
 }
+
+export async function updateUser(userId: string, user: NewUser): Promise<UserResponse> {
+  const [result] = await db.update(users).set({...user}).where(eq(users.id, userId)).returning();
+  return result as UserResponse;
+}
