@@ -8,3 +8,7 @@ export async function createRefreshToken(token: string, userId: string) {
   const [result] = await db.insert(refreshTokens).values({ token, userId, expiresAt }).returning();
   return result;
 }
+
+export async function deleteAllRefreshTokens() {
+  return db.delete(refreshTokens);
+}
