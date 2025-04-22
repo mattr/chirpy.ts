@@ -1,6 +1,7 @@
 import bcrypt from "bcrypt";
-import jwt, { JwtPayload } from "jsonwebtoken";
+import jwt, { type JwtPayload } from "jsonwebtoken";
 import { type Request } from "express";
+import crypto from "crypto";
 
 export function hashPassword(password: string): string {
   const salt = bcrypt.genSaltSync();
@@ -50,4 +51,8 @@ export function getBearerToken(req: Request): string {
 
   const [_, token] = req.headers.authorization.split(" ");
   return token.trim();
+}
+
+export function makeRefreshToken() {
+  return crypto.randomBytes(32).toString("hex");
 }
