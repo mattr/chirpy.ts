@@ -3,6 +3,10 @@ import jwt, { type JwtPayload } from "jsonwebtoken";
 import { type Request } from "express";
 import crypto from "crypto";
 
+// 1 hour in ms
+const DEFAULT_EXPIRES_IN_MS = 60 * 60 * 1000;
+const DEFAULT_SECRET = process.env.JWT_SECRET;
+
 export function hashPassword(password: string): string {
   const salt = bcrypt.genSaltSync();
   return bcrypt.hashSync(password, salt);
@@ -12,14 +16,18 @@ export function checkPasswordHash(password: string, hash: string): boolean {
   return bcrypt.compareSync(password, hash);
 }
 
-export function makeJWT(userID: string, expiresIn: number, secret: string): string {
+export function makeJWT(userID: string, expiresIn: number = DEFAULT_EXPIRES_IN_MS, secret: string = DEFAULT_SECRET!): string {
   type payload = Pick<JwtPayload, "iss" | "sub" | "iat" | "exp">;
 
+  const iat = Date.now();
+  const exp = iat + expiresIn;
+
+  // iat is in seconds, Date.now() is in ms
   const payload: payload = {
     iss: "chirpy",
     sub: userID,
-    iat: new Date().getTime(),
-    exp: new Date().getTime() + expiresIn,
+    iat: Math.floor(iat / 1000),
+    exp: Math.floor(exp / 1000),
   }
 
   return jwt.sign(payload, secret);
