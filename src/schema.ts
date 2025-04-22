@@ -1,4 +1,4 @@
-import { pgTable, timestamp, varchar, uuid, text } from "drizzle-orm/pg-core";
+import { pgTable, timestamp, varchar, uuid, text, boolean } from "drizzle-orm/pg-core";
 
 export const users = pgTable("users", {
   id: uuid("id").primaryKey().defaultRandom(),
@@ -6,6 +6,7 @@ export const users = pgTable("users", {
   updatedAt: timestamp("updated_at").notNull().defaultNow().$onUpdate(() => new Date()),
   email: varchar("email", { length: 256 }).unique().notNull(),
   hashedPassword: text("hashed_password").notNull().default("not_set"),
+  isChirpyRed: boolean("is_chirpy_red").notNull().default(false),
 });
 
 export type NewUser = typeof users.$inferInsert;
