@@ -6,6 +6,7 @@ import handlerGetChirps from "./handler-get-chirps.js"
 import handlerLogin from "./handler-login.js";
 import handlerMetrics from "./handler-metrics.js";
 import handlerMetricsReset from "./handler-metrics-reset.js";
+import handlerPolkaWebhooks from "./handler-polka-webhooks.js";
 import handlerReadiness from "./handler-readiness.js";
 import handlerRefresh from "./handler-refresh.js";
 import handlerRevoke from "./handler-revoke.js";
@@ -21,6 +22,7 @@ export {
   handlerLogin,
   handlerMetrics,
   handlerMetricsReset,
+  handlerPolkaWebhooks,
   handlerReadiness,
   handlerRefresh,
   handlerRevoke,

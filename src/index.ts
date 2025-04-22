@@ -12,6 +12,7 @@ import {
   handlerLogin,
   handlerMetrics,
   handlerMetricsReset,
+  handlerPolkaWebhooks,
   handlerReadiness,
   handlerRefresh,
   handlerRevoke,
@@ -49,6 +50,8 @@ app.post("/api/chirps", handlerCreateChirp);
 app.get("/api/chirps", handlerGetChirps);
 app.get("/api/chirps/:id", handlerGetChirp);
 app.delete("/api/chirps/:id", handlerDeleteChirp);
+
+app.post("/api/polka/webhooks", handlerPolkaWebhooks);
 
 app.get("/admin/metrics", handlerMetrics);
 app.post("/admin/reset", handlerMetricsReset);
