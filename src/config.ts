@@ -7,6 +7,7 @@ type APIConfig = {
   db: { url: string, migrationConfig: MigrationConfig };
   platform: string;
   jwtSecret: string | undefined;
+  polkaApiKey: string | undefined
 }
 
 const migrationConfig: MigrationConfig = {
@@ -20,7 +21,8 @@ const config: APIConfig = {
     migrationConfig
   },
   platform: process.env.PLATFORM || "production",
-  jwtSecret: process.env.JWT_SECRET
+  jwtSecret: process.env.JWT_SECRET,
+  polkaApiKey: process.env.POLKA_KEY,
 };
 
 export default config;
