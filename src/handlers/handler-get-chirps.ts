@@ -1,7 +1,20 @@
 import { Request, Response } from "express";
-import { getAllChirps } from "../db/queries/chirps.js";
+import { getAllChirps, getChirpsByUserId } from "../db/queries/chirps.js";
+import type { Chirp } from "../schema.js";
 
 export default async function handlerGetChirps(req: Request, res: Response) {
-  const chirps = await getAllChirps();
+  let authorId = "";
+  let authorIdQuery = req.query.authorId;
+  if (typeof authorIdQuery === "string") {
+    authorId = authorIdQuery.trim();
+  }
+
+  let chirps: Chirp[];
+  if (authorId) {
+    chirps = await getChirpsByUserId(authorId);
+  } else {
+    chirps = await getAllChirps();
+  }
+
   res.status(200).json(chirps);
 }
